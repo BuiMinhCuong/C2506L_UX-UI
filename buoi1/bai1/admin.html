@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản trị người dùng</title>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+    h2 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 5px;
+      text-align: center;
+    }
+    input {
+      padding: 5px;
+      margin: 3px;
+    }
+    button {
+      padding: 5px 10px;
+      margin: 2px;
+      cursor: pointer;
+    }
+    .edit { background: orange; color: white; border: none; }
+    .delete { background: red; color: white; border: none; }
+    #logoutBtn { background: gray; color: white; float: right; border: none; }
+  </style>
+</head>
+<body>
+  <h2>Trang Quản Trị Người Dùng 
+    <button id="logoutBtn">Đăng xuất</button>
+  </h2>
+
+  <h3>Thêm người dùng</h3>
+  <input type="text" id="name" placeholder="Họ tên">
+  <input type="email" id="email" placeholder="Email">
+  <input type="text" id="role" placeholder="Vai trò">
+  <button id="addBtn">Thêm</button>
+
+  <h3>Danh sách người dùng</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Họ tên</th>
+        <th>Email</th>
+        <th>Vai trò</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody id="userTable"></tbody>
+  </table>
+
+  <script>
+   
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const roleInput = document.getElementById("role");
+    const addBtn = document.getElementById("addBtn");
+    const userTable = document.getElementById("userTable");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    function showUsers() {
+      userTable.innerHTML = "";
+      users.forEach((user, i) => {
+        userTable.innerHTML += `
+          <tr>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>${user.role}</td>
+            <td>
+              <button class="edit" onclick="editUser(${i})">Sửa</button>
+              <button class="delete" onclick="deleteUser(${i})">Xóa</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    addBtn.onclick = function() {
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const role = roleInput.value.trim();
+
+      if (name && email && role) {
+        users.push({ name, email, role });
+        localStorage.setItem("users", JSON.stringify(users));
+        showUsers();
+        nameInput.value = emailInput.value = roleInput.value = "";
+      } else {
+        alert("Nhập đủ thông tin!");
+      }
+    }
+
+    window.editUser = function(i) {
+      const user = users[i];
+      const newName = prompt("Tên mới:", user.name);
+      const newEmail = prompt("Email mới:", user.email);
+      const newRole = prompt("Vai trò mới:", user.role);
+
+      if (newName && newEmail && newRole) {
+        users[i] = { name: newName, email: newEmail, role: newRole };
+        localStorage.setItem("users", JSON.stringify(users));
+        showUsers();
+      }
+    }
+
+    window.deleteUser = function(i) {
+      if (confirm("Bạn có chắc muốn xóa?")) {
+        users.splice(i, 1);
+        localStorage.setItem("users", JSON.stringify(users));
+        showUsers();
+      }
+    }
+
+    logoutBtn.onclick = function() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "login.html";
+    }
+
+    showUsers();
+  </script>
+</body>
+</html>
