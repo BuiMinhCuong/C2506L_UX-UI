@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trang quản trị</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    h2 { text-align: center; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ccc; padding: 5px; text-align: center; }
+    input { margin: 3px; padding: 5px; }
+    button { margin: 2px; padding: 5px 10px; cursor: pointer; }
+    .logout { background: gray; color: white; float: right; border: none; }
+    .edit { background: orange; color: white; border: none; }
+    .delete { background: red; color: white; border: none; }
+    .add { background: blue; color: white; border: none; }
+  </style>
+</head>
+<body>
+  <h2>Trang Quản Trị <button class="logout" id="logout">Đăng xuất</button></h2>
+
+  <h3>Người dùng</h3>
+  <input id="uName" placeholder="Họ tên">
+  <input id="uEmail" placeholder="Email">
+  <input id="uRole" placeholder="Vai trò">
+  <button class="add" id="addUser">Thêm</button>
+
+  <table>
+    <thead><tr><th>Họ tên</th><th>Email</th><th>Vai trò</th><th>Hành động</th></tr></thead>
+    <tbody id="userTable"></tbody>
+  </table>
+
+  <h3>Sản phẩm</h3>
+  <input id="pName" placeholder="Tên">
+  <input id="pPrice" placeholder="Giá">
+  <input id="pDesc" placeholder="Mô tả">
+  <input id="pImage" placeholder="Link ảnh">
+  <button class="add" id="addProduct">Thêm</button>
+
+  <table>
+    <thead><tr><th>Tên</th><th>Giá</th><th>Mô tả</th><th>Ảnh</th><th>Hành động</th></tr></thead>
+    <tbody id="productTable"></tbody>
+  </table>
+
+  <script>
+  
+    const role = localStorage.getItem("role");
+    if (localStorage.getItem("isLoggedIn") !== "true" || role !== "admin") {
+      window.location.href = "login.html";
+    }
+
+    document.getElementById("logout").onclick = function() {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("role");
+      window.location.href = "login.html";
+    };
+
+  
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    const userTable = document.getElementById("userTable");
+
+    function showUsers() {
+      userTable.innerHTML = "";
+      users.forEach((u, i) => {
+        userTable.innerHTML += `
+          <tr>
+            <td>${u.name}</td>
+            <td>${u.email}</td>
+            <td>${u.role}</td>
+            <td>
+              <button class="edit" onclick="editUser(${i})">Sửa</button>
+              <button class="delete" onclick="deleteUser(${i})">Xóa</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    document.getElementById("addUser").onclick = function() {
+      const name = uName.value.trim();
+      const email = uEmail.value.trim();
+      const role = uRole.value.trim();
+      if (name && email && role) {
+        users.push({ name, email, role });
+        localStorage.setItem("users", JSON.stringify(users));
+        showUsers();
+        uName.value = uEmail.value = uRole.value = "";
+      } else alert("Nhập đủ thông tin!");
+    };
+
+    window.editUser = function(i) {
+      const u = users[i];
+      const newName = prompt("Tên mới:", u.name);
+      const newEmail = prompt("Email mới:", u.email);
+      const newRole = prompt("Vai trò mới:", u.role);
+      if (newName && newEmail && newRole) {
+        users[i] = { name: newName, email: newEmail, role: newRole };
+        localStorage.setItem("users", JSON.stringify(users));
+        showUsers();
+      }
+    };
+
+    window.deleteUser = function(i) {
+      if (confirm("Xóa người dùng này?")) {
+        users.splice(i, 1);
+        localStorage.setItem("users", JSON.stringify(users));
+        showUsers();
+      }
+    };
+
+    let products = JSON.parse(localStorage.getItem("products")) || [];
+    const productTable = document.getElementById("productTable");
+
+    function showProducts() {
+      productTable.innerHTML = "";
+      products.forEach((p, i) => {
+        productTable.innerHTML += `
+          <tr>
+            <td>${p.name}</td>
+            <td>${p.price}</td>
+            <td>${p.desc}</td>
+            <td><img src="${p.image}" width="50" height="50"></td>
+            <td>
+              <button class="edit" onclick="editProduct(${i})">Sửa</button>
+              <button class="delete" onclick="deleteProduct(${i})">Xóa</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    document.getElementById("addProduct").onclick = function() {
+      const name = pName.value.trim();
+      const price = pPrice.value.trim();
+      const desc = pDesc.value.trim();
+      const image = pImage.value.trim();
+      if (name && price && desc && image) {
+        products.push({ name, price, desc, image });
+        localStorage.setItem("products", JSON.stringify(products));
+        showProducts();
+        pName.value = pPrice.value = pDesc.value = pImage.value = "";
+      } else alert("Nhập đủ thông tin!");
+    };
+
+    window.editProduct = function(i) {
+      const p = products[i];
+      const newName = prompt("Tên:", p.name);
+      const newPrice = prompt("Giá:", p.price);
+      const newDesc = prompt("Mô tả:", p.desc);
+      const newImage = prompt("Link ảnh:", p.image);
+      if (newName && newPrice && newDesc && newImage) {
+        products[i] = { name: newName, price: newPrice, desc: newDesc, image: newImage };
+        localStorage.setItem("products", JSON.stringify(products));
+        showProducts();
+      }
+    };
+
+    window.deleteProduct = function(i) {
+      if (confirm("Xóa sản phẩm này?")) {
+        products.splice(i, 1);
+        localStorage.setItem("products", JSON.stringify(products));
+        showProducts();
+      }
+    };
+
+    showUsers();
+    showProducts();
+  </script>
+</body>
+</html>

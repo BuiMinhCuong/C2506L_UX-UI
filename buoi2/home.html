@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trang chủ</title>
+  <style>
+    body { font-family: Arial; background: #f9f9f9; margin: 20px; }
+    #logout { background: gray; color: white; border: none; padding: 5px 10px; cursor: pointer; float: right; }
+    .card { border: 1px solid #ccc; background: white; width: 200px; padding: 10px; margin: 10px; text-align: center; display: inline-block; }
+    img { width: 100%; height: 100px; object-fit: cover; }
+  </style>
+</head>
+<body>
+  <h2>Trang chủ người dùng <button id="logout">Đăng xuất</button></h2>
+  <div id="list"></div>
+
+  <script>
+    
+    const role = localStorage.getItem("role");
+    if (localStorage.getItem("isLoggedIn") !== "true" || role !== "user") {
+      window.location.href = "login.html";
+    }
+
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    const list = document.getElementById("list");
+
+    function showProducts() {
+      if (products.length === 0) {
+        list.innerHTML = "<p>Chưa có sản phẩm nào.</p>";
+        return;
+      }
+      list.innerHTML = "";
+      for (let p of products) {
+        list.innerHTML += `
+          <div class="card">
+            <img src="${p.image}">
+            <h4>${p.name}</h4>
+            <p>Giá: ${p.price}₫</p>
+            <p>${p.desc}</p>
+          </div>
+        `;
+      }
+    }
+
+    document.getElementById("logout").onclick = function() {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("role");
+      window.location.href = "login.html";
+    };
+
+    showProducts();
+  </script>
+</body>
+</html>
