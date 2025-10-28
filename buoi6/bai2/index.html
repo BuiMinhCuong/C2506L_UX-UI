@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Movements</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="table-container">
+    <div class="header">
+      <div>
+        <h2>Vendor movements <span class="tag">240 vendors</span></h2>
+        <p>Keep track of vendor and their security ratings.</p>
+      </div>
+      <div class="actions">
+        <button class="btn">Import</button>
+        <button class="btn purple">+ Add vendor</button>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <div class="left">
+        <button class="tab active">View all</button>
+        <button class="tab">Monitored</button>
+        <button class="tab">Text</button>
+      </div>
+      <div class="right">
+        <input type="text" placeholder="Search">
+        <button class="filter-btn">Filters</button>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox"></th>
+          <th>Vendor</th>
+          <th>Rating</th>
+          <th>Last assessed</th>
+          <th>License use</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td><input type="checkbox" checked></td>
+          <td>
+            <div class="vendor">
+              <img src="" alt="">
+              <div>
+                <strong>Catalog</strong>
+                <p>catalogapp.io</p>
+              </div>
+            </div>
+          </td>
+          <td><div class="progress"><span style="width:60%"></span></div> 60 <span class="up">↑ 5%</span></td>
+          <td>22 Jan 2022</td>
+          <td><span class="status active">Active</span> <span class="badge blue">Customer data</span> <span class="badge gray">Admin</span> <span class="badge light">+4</span></td>
+          <td class="icons"><button class="edit-btn">Sửa</button> <button class="delete-btn">Xóa</button></td>
+        </tr>
+
+        <tr>
+          <td><input type="checkbox" checked></td>
+          <td>
+            <div class="vendor">
+              <img src="" alt="">
+              <div>
+                <strong>Circoole</strong>
+                <p>getcircoole.com</p>
+              </div>
+            </div>
+          </td>
+          <td><div class="progress"><span style="width:72%"></span></div> 72 <span class="down">↓ 4%</span></td>
+          <td>20 Jan 2022</td>
+          <td><span class="status active">Active</span> <span class="badge blue">Business data</span> <span class="badge gray">Admin</span> <span class="badge light">+2</span></td>
+          <td class="icons"><button class="edit-btn">Sửa</button> <button class="delete-btn">Xóa</button></td>
+        </tr>
+
+        <tr>
+          <td><input type="checkbox" checked></td>
+          <td>
+            <div class="vendor">
+              <img src="" alt="">
+              <div>
+                <strong>Command+R</strong>
+                <p>cmdr.ai</p>
+              </div>
+            </div>
+          </td>
+          <td><div class="progress"><span style="width:78%"></span></div> 78 <span class="up">↑ 6%</span></td>
+          <td>24 Jan 2022</td>
+          <td><span class="status active">Active</span> <span class="badge blue">Customer data</span> <span class="badge pink">Financials</span></td>
+          <td class="icons"><button class="edit-btn">Sửa</button> <button class="delete-btn">Xóa</button></td>
+        </tr>
+
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>
+            <div class="vendor">
+              <img src="" alt="">
+              <div>
+                <strong>Hourglass</strong>
+                <p>hourglass.app</p>
+              </div>
+            </div>
+          </td>
+          <td><div class="progress"><span style="width:38%"></span></div> 38 <span class="up">↑ 8%</span></td>
+          <td>26 Jan 2022</td>
+          <td><span class="status active">Active</span> <span class="badge blue">Database access</span> <span class="badge gray">Admin</span></td>
+          <td class="icons"><button class="edit-btn">Sửa</button> <button class="delete-btn">Xóa</button></td>
+        </tr>
+
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>
+            <div class="vendor">
+              <img src="" alt="">
+              <div>
+                <strong>Layers</strong>
+                <p>getlayers.io</p>
+              </div>
+            </div>
+          </td>
+          <td><div class="progress"><span style="width:42%"></span></div> 42 <span class="down">↓ 1%</span></td>
+          <td>18 Jan 2022</td>
+          <td><span class="status active">Active</span> <span class="badge orange">Salesforce</span> <span class="badge gray">Admin</span> <span class="badge light">+2</span></td>
+          <td class="icons"><button class="edit-btn">Sửa</button> <button class="delete-btn">Xóa</button></td>
+        </tr>
+
+        <tr>
+          <td><input type="checkbox" checked></td>
+          <td>
+            <div class="vendor">
+              <img src="" alt="">
+              <div>
+                <strong>Quotient</strong>
+                <p>quotient.co</p>
+              </div>
+            </div>
+          </td>
+          <td><div class="progress"><span style="width:66%"></span></div> 66 <span class="down">↓ 6%</span></td>
+          <td>28 Jan 2022</td>
+          <td><span class="status active">Active</span> <span class="badge blue">Business data</span> <span class="badge gray">Admin</span> <span class="badge light">+4</span></td>
+          <td class="icons"><button class="edit-btn">Sửa</button> <button class="delete-btn">Xóa</button></td>
+        </tr>
+
+                         <tr>
+          <td><input type="checkbox" checked></td>
+          <td>
+            <div class="vendor">
+              <img src="" alt="">
+              <div>
+                                 <strong>Sisyphus</strong>
+                <p>sisyphus.com</p>
+                 </div>
+                </div>
+          </td>
+          <td><div class="progress"><span style="width:91%"></span></div> 91 <span class="up">↑ 2%</span></td>
+                           <td>16 Jan 2022</td>
+          <td><span class="status inactive">Inactive</span> <span class="badge blue">Customer data</span> <span class="badge pink">Financials</span></td>
+          <td class="icons"><button class="edit-btn">Sửa</button> <button class="delete-btn">Xóa</button></td>
+        </tr>
+       </tbody>
+    </table>
+
+    <div class="footer">
+      <p>Page 1 of 10</p>
+      <div class="pagination">
+        <button>Previous</button>
+        <button>Next</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
